@@ -1,1 +1,48 @@
-<p>home works!</p>
+<section id="home" class="min-h-screen bg-[#F8F7FC] py-12">
+  <div class="container mx-auto px-6">
+    <!-- ? Header -->
+    <div class="flex justify-between items-center mb-10">
+      <h1 class="text-3xl font-bold textd-[#2C2C2C]">My Notes</h1>
+      <button class="bg-[#2C2C2C] hover:bg-black text-white px-6 py-2 rounded-full font-medium transition duration-200">
+        <i class="fa-solid fa-plus text-xs"></i> New Note
+      </button>
+    </div>
+
+    <!-- ? Notes  -->
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (note of userNotes; track note._id) {
+      <!-- ? One Note -->
+      <div class="relative bg-[#C5A5F7] rounded-xl p-6 shadow-lg hover:scale-105 transform transition duration-300 z-1">
+        <div class="absolute -top-3 left-6 bg-[#2C2C2C] text-white px-2 py-1 text-xs rounded-full shadow">
+          📌
+        </div>
+
+        <h3 class="text-lg font-bold text-[#2C2C2C] mb-2"> {{note.title}} </h3>
+
+        <div>
+          <p class="text-sm text-gray-800 leading-snug mb-6"> {{note.content}} </p>
+        </div>
+
+        <!-- ? Footer -->
+        <div class="flex justify-between items-center text-sm text-gray-700">
+          <span> {{note.createdAt | date:'medium'}} </span>
+          <div class="flex gap-2">
+            <button
+              class="bg-[#2C2C2C] hover:bg-black text-white h-8 w-8 rounded-full flex items-center justify-center transition"
+              title="Edit">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button
+              class="bg-[#2C2C2C] hover:bg-black text-white h-8 w-8 rounded-full flex items-center justify-center transition"
+              title="Delete">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<app-modal (addNote)="handleSave($event)"></app-modal>

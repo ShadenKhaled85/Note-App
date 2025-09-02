@@ -1,0 +1,28 @@
+<div class="card flex justify-center">
+  <p-dialog [header]="modalMode === 'add' ? 'Add Note' :'Update Note'" [modal]="true" [(visible)]="visible"
+    [style]="{ width: '35rem' }">
+
+    <form [formGroup]="noteForm" class="my-4">
+      <div class="flex items-center flex-col gap-4 mb-4">
+        <div class="flex flex-col gap-2 w-full">
+          <p-floatlabel variant="on">
+            <input formControlName="title" pInputText id="title" autocomplete="off" class="w-full" />
+            <label for="title">Note Title</label>
+          </p-floatlabel>
+          <app-alert-messages [control]="noteForm.get('title')"></app-alert-messages>
+        </div>
+        <div class="flex flex-col gap-2 w-full">
+          <p-floatlabel variant="on">
+            <textarea formControlName="content" pInputText id="content" autocomplete="off" class="w-full"></textarea>
+            <label for="content">Note Contnet</label>
+          </p-floatlabel>
+          <app-alert-messages [control]="noteForm.get('content')" />
+        </div>
+      </div>
+    </form>
+    <div class="flex justify-end gap-2">
+      <p-button (click)="closeModal()" label="Cancel" severity="secondary" />
+      <p-button (click)="submitAddNote()" label="Save" />
+    </div>
+  </p-dialog>
+</div>

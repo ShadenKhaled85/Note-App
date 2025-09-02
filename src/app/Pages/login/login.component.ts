@@ -43,7 +43,7 @@ export class LoginComponent {
               severity: 'success',
               summary: 'Logged in successfully',
             })
-            localStorage.setItem('token', `3b8ny__${res.token}`);
+            localStorage.setItem('token', res.token);
             this.userService.loggedIn();
             this.loginForm.reset();
           }

@@ -1,11 +1,67 @@
-import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Note } from '../../Models/note';
+import { NoteService } from './../../Core/Services/note/note.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { ModalComponent } from "../../Shared/Components/modal/modal.component";
+import { AddNote } from '../../Models/add-note';
+import { NoteModalService } from '../../Core/Services/noteModal/note-modal.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [DatePipe, ModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+
+  private readonly noteService = inject(NoteService);
+  private readonly noteModalService = inject(NoteModalService);
+
+  userNotes : Note[] = [];
+  modalMode = this.noteModalService.modalMode();
+  noteId = this.noteModalService.noteId();
+
+  ngOnInit(): void {
+    this.getUserNotes();
+  }
+
+  getUserNotes(){
+    this.noteService.getUserNotes().subscribe({
+      next:(res)=>{
+        console.log(res);
+        if(res.msg === 'done'){
+          this.userNotes = res.notes;
+        }
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  handleSave(note:AddNote) :void{
+    if(this.modalMode === 'add'){
+      this.noteService.addNote(note).subscribe({
+        next:(res)=>{
+          console.log(res);
+          // this.getUserNotes();
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
+    } else if(this.modalMode === 'update'){
+        this.noteService.updateNote(this.noteId!, note).subscribe({
+          next:(res)=>{
+            console.log(res);
+            // this.getUserNotes();
+          },
+          error:(err)=>{
+            console.log(err);
+          }
+        })
+      }
+  }
+
 
 }

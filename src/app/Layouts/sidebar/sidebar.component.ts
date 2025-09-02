@@ -2,10 +2,11 @@ import { UserService } from './../../Core/Services/user/user.service';
 import { Component, computed, inject, input, Input, InputSignal, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import { NewNoteComponent } from "../../Components/Home/new-note/new-note.component";
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NewNoteComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
