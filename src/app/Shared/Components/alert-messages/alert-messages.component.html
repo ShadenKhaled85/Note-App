@@ -1,0 +1,35 @@
+@if (control?.errors && control?.touched) {
+
+@if (control?.getError('required') ) {
+<p-message severity="error">Input is required</p-message>
+}
+
+<!-- ? Name Alert Message -->
+@if (control?.getError('minlength') || control?.getError('maxlength')) {
+<p-message severity="error">Name should be between 3 and 30 characters</p-message>
+}
+
+<!-- ? Email Alert Message -->
+@if (control?.getError('pattern') && fieldName === 'email'){
+<p-message severity="error">Enter a valid email</p-message>
+}
+
+<!-- ? Password Alert Message -->
+@if (control?.getError('pattern') && fieldName === 'password'){
+<p-message severity="error">Password must start with an uppercase letter, be at least 8
+  characters long, and contain only letters, numbers, underscores, or
+  the symbols !#$%^&*()-+=</p-message>
+}
+
+<!-- ? Age Alert Message -->
+@if (control?.getError('pattern') && fieldName === 'age'){
+<p-message severity="error">Invalid age! Please enter a number between 10 and 80</p-message>
+}
+
+<!-- ? Phone Alert Message -->
+@if (control?.getError('pattern') && fieldName === 'phone'){
+<p-message severity="error">Phone must be only egypt phone numbers</p-message>
+}
+
+
+}
