@@ -1,4 +1,14 @@
+<!-- ? Testing Account -->
+
+<div
+  class="fixed flex flex-col top-4 right-4 bg-yellow-100 border border-yellow-300 text-yellow-800 p-6 rounded-md text-sm shadow">
+  <h3>Demo Account:</h3>
+  <p> Username: testtt&#64;gmail.com</p>
+  <p> Password: Test&#64;123</p>
+</div>
+
 <section id="login-form" class="w-full max-w-xl mx-auto bg-white shadow-lg rounded-xl p-8">
+
   <h1 class="text-center text-[#a734a9] text-3xl font-bold mb-6">Login Now</h1>
 
   <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" class="space-y-5">
@@ -36,6 +46,8 @@
       }
     </button>
   </form>
+
+
 
   <!-- ? Toast -->
   <p-toast position="top-right" />
