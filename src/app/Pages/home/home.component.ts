@@ -5,19 +5,26 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ModalComponent } from "../../Shared/Components/modal/modal.component";
 import { AddNote } from '../../Models/add-note';
 import { NoteModalService } from '../../Core/Services/noteModal/note-modal.service';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
-  imports: [DatePipe, ModalComponent],
+  imports: [DatePipe, ModalComponent, ConfirmDialog, ToastModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  providers: [ConfirmationService, MessageService]
 })
 export class HomeComponent implements OnInit{
+
+  constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   private readonly noteService = inject(NoteService);
   private readonly noteModalService = inject(NoteModalService);
 
   userNotes : Note[] = [];
+
 
   ngOnInit(): void {
     this.getUserNotes();
@@ -50,8 +57,7 @@ export class HomeComponent implements OnInit{
       })
     } else if(this.modalMode === 'update'){
         this.noteService.updateNote(this.noteId!, note).subscribe({
-          next:(res)=>{
-            console.log(res);
+          next:()=>{
             this.getUserNotes();
           },
           error:(err)=>{
@@ -59,22 +65,11 @@ export class HomeComponent implements OnInit{
           }
         })
       }
+    this.noteModalService.closeModal();
   }
 
   onOpenUpdateModal(note:Note, noteId: string){
     this.noteModalService.onOpenUpdateModal(note,noteId)
-  }
-
-  deleteNote(noteId:string){
-    this.noteService.deleteNote(noteId).subscribe({
-      next:(res)=>{
-        console.log(res);
-        this.getUserNotes();
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
   }
 
   get noteId() {
@@ -84,5 +79,51 @@ export class HomeComponent implements OnInit{
   get modalMode() {
     return this.noteModalService.modalMode();
   }
+
+  deleteNote(noteId:string){
+    this.noteService.deleteNote(noteId).subscribe({
+      next:()=>{
+        this.getUserNotes();
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  // ? Confirm Deletion
+  confirm1(event: Event, noteId:string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to delete this note?',
+      header: 'Delete Note',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+      label: 'Cancel',
+      severity: 'secondary',
+      outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger'
+        },
+        accept: () => {
+            this.deleteNote(noteId);
+            this.messageService.add({
+            severity: 'success',
+            summary: 'Note deleted successfully',
+            });
+        },
+        reject: () => {
+          this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          life: 3000,
+          });
+        },
+      });
+    }
 
 }

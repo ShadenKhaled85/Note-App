@@ -37,7 +37,6 @@ export class ModalComponent {
     if(this.noteForm.valid){
       this.addNote.emit(this.noteForm.value);
       this.noteForm.reset();
-      this.closeModal();
     }
     else{
       this.noteForm.markAllAsTouched();
