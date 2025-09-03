@@ -43,4 +43,4 @@ You can try the app without creating a new account.
 Use the following credentials on the login page:
 
 - **Username:** `testtt@gmail.com`  
-- **Password:** `Test@123`  
+- **Password:** `Test123`  
