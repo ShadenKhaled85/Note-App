@@ -27,12 +27,12 @@
         <div class="flex justify-between items-center text-sm text-gray-700">
           <span> {{note.createdAt | date:'medium'}} </span>
           <div class="flex gap-2">
-            <button
+            <button (click)="onOpenUpdateModal(note, note._id)"
               class="bg-[#2C2C2C] hover:bg-black text-white h-8 w-8 rounded-full flex items-center justify-center transition"
               title="Edit">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
-            <button
+            <button (click)="deleteNote(note._id)"
               class="bg-[#2C2C2C] hover:bg-black text-white h-8 w-8 rounded-full flex items-center justify-center transition"
               title="Delete">
               <i class="fa-solid fa-trash"></i>
@@ -45,4 +45,7 @@
   </div>
 </section>
 
+<!-- ? Add Note -->
 <app-modal (addNote)="handleSave($event)"></app-modal>
+
+<!-- ? Update Note -->

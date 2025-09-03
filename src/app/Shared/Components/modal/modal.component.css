@@ -1,0 +1,8 @@
+.custom-save-btn ::ng-deep .p-button {
+  background-color: #aa76ff !important;
+  border: none !important;
+}
+
+.custom-save-btn ::ng-deep .p-button:hover {
+  background-color: #914dff !important;
+}

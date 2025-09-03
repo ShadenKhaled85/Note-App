@@ -14,7 +14,7 @@
         <div class="flex flex-col gap-2 w-full">
           <p-floatlabel variant="on">
             <textarea formControlName="content" pInputText id="content" autocomplete="off" class="w-full"></textarea>
-            <label for="content">Note Contnet</label>
+            <label for="content">Note Content</label>
           </p-floatlabel>
           <app-alert-messages [control]="noteForm.get('content')" />
         </div>
@@ -22,7 +22,7 @@
     </form>
     <div class="flex justify-end gap-2">
       <p-button (click)="closeModal()" label="Cancel" severity="secondary" />
-      <p-button (click)="submitAddNote()" label="Save" />
+      <p-button (click)="submitAddNote()" [label]="modalMode === 'add' ? 'Add' : 'Update'" class="custom-save-btn" />
     </div>
   </p-dialog>
 </div>

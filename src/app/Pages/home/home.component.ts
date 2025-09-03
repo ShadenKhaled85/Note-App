@@ -18,8 +18,6 @@ export class HomeComponent implements OnInit{
   private readonly noteModalService = inject(NoteModalService);
 
   userNotes : Note[] = [];
-  modalMode = this.noteModalService.modalMode();
-  noteId = this.noteModalService.noteId();
 
   ngOnInit(): void {
     this.getUserNotes();
@@ -44,7 +42,7 @@ export class HomeComponent implements OnInit{
       this.noteService.addNote(note).subscribe({
         next:(res)=>{
           console.log(res);
-          // this.getUserNotes();
+          this.getUserNotes();
         },
         error:(err)=>{
           console.log(err);
@@ -54,7 +52,7 @@ export class HomeComponent implements OnInit{
         this.noteService.updateNote(this.noteId!, note).subscribe({
           next:(res)=>{
             console.log(res);
-            // this.getUserNotes();
+            this.getUserNotes();
           },
           error:(err)=>{
             console.log(err);
@@ -63,5 +61,28 @@ export class HomeComponent implements OnInit{
       }
   }
 
+  onOpenUpdateModal(note:Note, noteId: string){
+    this.noteModalService.onOpenUpdateModal(note,noteId)
+  }
+
+  deleteNote(noteId:string){
+    this.noteService.deleteNote(noteId).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.getUserNotes();
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  get noteId() {
+    return this.noteModalService.noteId();
+  }
+
+  get modalMode() {
+    return this.noteModalService.modalMode();
+  }
 
 }
