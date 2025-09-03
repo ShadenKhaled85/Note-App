@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../Environment/environment';
 import { AddNote } from '../../../Models/add-note';
 
@@ -10,6 +10,8 @@ import { AddNote } from '../../../Models/add-note';
 export class NoteService {
 
   constructor(private httpClient : HttpClient) { }
+
+  notesCount = new BehaviorSubject<number>(0);
 
   getUserNotes(): Observable<any>{
     return this.httpClient.get(`${environment.baseUrl}/api/v1/notes`)
@@ -25,5 +27,9 @@ export class NoteService {
 
   deleteNote(noteId:string): Observable<AddNote>{
     return this.httpClient.delete<AddNote>(`${environment.baseUrl}/api/v1/notes/${noteId}`)
+  }
+
+  updateNotesCount(count: number) {
+    this.notesCount.next(count);
   }
 }

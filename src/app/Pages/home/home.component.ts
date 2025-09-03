@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit{
         console.log(res);
         if(res.msg === 'done'){
           this.userNotes = res.notes;
+          this.noteService.updateNotesCount(this.userNotes.length);
         }
       },
       error:(err)=>{
