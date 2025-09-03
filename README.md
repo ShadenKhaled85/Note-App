@@ -20,7 +20,7 @@ The app also includes **authentication guards** to protect routes and a clean UI
 - **Notes Management**
   - ➕ Add new note
   - 📝 Edit existing note
-  - ❌ Delete a note
+  - ❌ Delete a note (with a confirmation message before deletion ✅)
   - 📄 View all notes
 
 - **UI & Navigation**
@@ -29,11 +29,18 @@ The app also includes **authentication guards** to protect routes and a clean UI
     - **Add New Note** → quick access to note creation
   - Responsive and user-friendly interface
 
+- **Core Angular Concepts**
+  - ⚡ **Signals** → for efficient reactivity and state management
+  - 🛠 **Services** → for handling authentication, API communication, and shared logic
+  - 🌐 **APIs** → all CRUD operations are connected to backend APIs
+  - 🛡 **Interceptor** → automatically attaches headers (like authentication tokens) to every API request
+
 ---
 
 ## 🧑‍💻 Demo Account
 
 You can try the app without creating a new account.  
 Use the following credentials on the login page:
-  - **Username: testtt@gmail.com**
-  - **Password: Test@123**
+
+- **Username:** `testtt@gmail.com`  
+- **Password:** `Test@123`  
